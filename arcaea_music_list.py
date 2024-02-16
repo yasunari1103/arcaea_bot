@@ -42,4 +42,6 @@ music_list = {"Testify":12.0,
 
 "Einherjar Joker":10.9,
 
-"Infinite Strife,":10.9}
+"Infinite Strife,":10.9,
+
+"lolikko prpr":1000}
