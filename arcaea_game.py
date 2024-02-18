@@ -3,7 +3,7 @@ from discord.ext import commands
 import math
 import sqlite3
 import team_database
-import arcaea_music_list
+from arcaea_music_list import music_list
 
 client = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
@@ -273,8 +273,13 @@ async def score_check(ctx,team):
         conn.close()
 
 @client.command()
-async def item_Gacha():
-    item = ["","","",""]
+async def MC(ctx,song):
+    for key,value in music_list.items():
+        if key == song:
+            await ctx.send(f"{song}の譜面定数は、{value}です！")
+    if not song in music_list.keys():
+        await ctx.send("正しい楽曲を入力してください！")
+
 
 TOKEN = 'MTEyMzY2NTU0MTgwMzAyMDMyOA.GPydZ3.BPoftKYXtUYWhvC4PYFJb3iTNmVuw3eRldCW-s'
 

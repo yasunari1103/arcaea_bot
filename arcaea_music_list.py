@@ -1,47 +1,144 @@
-music_list = {"Testify":12.0,
+music_list = {"Testify[BYD]":12.0,
 
-"Tempestissimo":11.5,
+"Tempestissimo[BYD]":11.5,
 
-"Arcana Eden":11.4,
+"Arcana Eden[BYD]":11.4,
 
-"Pentiment":11.4,
+"Pentiment[BYD]":11.4,
 
 "Arghena":11.3,
-
 "Fracture Ray":11.3,
-
 "Grievous Lady":11.3,
 
-"魔王":11.2,
+"魔王[BYD]":11.2,
 
 "Abstruse Dilemma":11.1,
-
 "Aegleseeker":11.1,
-
-"Vicious [ANTi] Heroism":11.1,
+"Vicious [ANTi] Heroism[BYD]":11.1,
 
 "最強STRONGER":11.0,
-
-"PRAGMATISM-RESURRECTION-":11.0,
+"PRAGMATISM-RESURRECTION-[BYD]":11.0,
 
 "#1f1e33":10.9,
-
 "BUCHiGiRE Berserker":10.9,
-
 "CHAOS":10.9,
-
 "Dantalion":10.9,
-
 "LAMIA":10.9,
-
 "業 -善なる神とこの世の悪について-":10.9,
-
 "TEmPTaTiON":10.9,
-
 "TeraVolt":10.9,
+"Einherjar Joker[BYD]":10.9,
+"Infinite Strife,[BYD]":10.9,
 
-"Einherjar Joker":10.9,
+"Ⅱ́̕":10.8,
+"光速神授説- Divine Light ofMyriad -":10.8,
+"Meta-Mysteria":10.8,
+"Ringed Genesis":10.8,
+"蜘蛛の糸":10.8,
+"Testify":10.8,
+"World Vanquisher":10.8,
+"ω4":10.8,
+"Heavensdoor[BYD]":10.8,
 
-"Infinite Strife,":10.9,
+"AMAZING MIGHTYYYY!!!!":10.7,
+"Axium Crisis":10.7,
+"Cyaegha":10.7,
+"GENOCIDER":10.7,
+"Halcyon":10.7,
+"ouroboros -twin stroke of the end-":10.7,
+"PRIMITIVE LIGHTS":10.7,
+"烈華RESONANCE":10.7,
+"Singularity":10.7,
+"Stasis":10.7,
+"Tempestissimo":10.7,
 
-"lolikko prpr":1000}
+"AttraqtiA":10.6,
+"corps-sans-organes":10.6,
+"cyanine":10.6,
+"GLORY：ROAD":10.6,
+"Live Fast Die Young":10.6,
+"Manic Jeer":10.6,
+"NULL APOPHENIA":10.6,
+"Overwhelm":10.6,
+"Seclusion":10.6,
+"Sheriruth (Laur Remix)":10.6,
+"UNKNOWN LEVELS":10.6,
+"Purple Verse":10.6,
+
+"Arcana Eden":10.5,
+"Aurgelmir":10.5,
+"eden":10.5,
+"Ego Eimi":10.5,
+"Good bye, Merry-Go-Round.":10.5,
+"Last Celebration":10.5,
+"Lightning Screw":10.5,
+"To the Milky Way":10.5,
+"Wish Upon a Snow":10.5,
+"XTREME":10.5,
+"Libertas":10.5,
+"overdead.":10.5,
+"妖艶魔女 -trappola bewitching-":10.5,
+
+"[X]":10.4,
+"Chronicle":10.4,
+"Climax":10.4,
+"Crimson Throne":10.4,
+"Felis":10.4,
+"Garakuta Doll Play":10.4,
+"GIMME DA BLOOD":10.4,
+"怒槌":10.4,
+"Kissing Lucifer":10.4,
+"Lucid Traveler":10.4,
+"PUPA":10.4,
+"Rise of the World":10.4,
+"Tiferet":10.4,
+"Valhalla:0":10.4,
+"γuarδina":10.4,
+"IMPACT":10.4,
+"Singularity VVVIP":10.4,
+
+"99 Glooms":10.3,
+"Ether Strike":10.3,
+"緋色月下、狂咲ノ絶 (nayuta 2017 ver.)":10.3,
+"IZANA":10.3,
+"Metallic Punisher":10.3,
+"Nirv lucE":10.3,
+"Pentiment":10.3,
+"アリス・リデルに捧ぐ":10.3,
+"Viyella's Tears":10.3,
+
+"Capella":10.2,
+"conflict":10.2,
+"G e n g a o z o":10.2,
+"Löschen":10.2,
+"Magnolia":10.2,
+"Malicious Mischance":10.2,
+"Medusa":10.2,
+"NEO WINGS":10.2,
+"Redolent Shape":10.2,
+"αterlβus":10.2,
+"OMAKENO Stroke":10.2,
+"Quon":10.2,
+
+"Logos":10.1,
+"PRAGMATISM":10.1,
+"Scarlet Lance":10.1,
+"Sheriruth":10.1,
+"Trrricksters!!":10.1,
+"lastendconductor":10.1,
+"Party Vinyl":10.1,
+
+"Alexandrite":10.0,
+"竹":10.0,
+"Free Myself":10.0,
+"HIVEMIND":10.0,
+"患部で止まってすぐ溶ける":10.0,
+"Mirzam":10.0,
+"Modelista":10.0,
+"Oshama Scramble!":10.0,
+"妖艶魔女 -trappola bewitching-":10.0,
+"Vicious Heroism":10.0,
+"Xanatos":10.0,
+"Bookmaker (2D Version)":10.0,
+"Red and Blue and Green":10.0
+}
