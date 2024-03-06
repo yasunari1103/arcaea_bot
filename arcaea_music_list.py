@@ -253,8 +253,8 @@ music_list = {
 "Quon":9.6,
 "Stratoliner":9.6,
 "Vindication":9.6,
-"Infinity Heaven":9.6,
-"Last｜Moment":9.6,
-"next to you":9.6,
-"Purgatorium":9.6,
+"Infinity Heaven[BYD]":9.6,
+"Last｜Moment[BYD]":9.6,
+"next to you[BYD]":9.6,
+"Purgatorium[BYD]":9.6,
 }
