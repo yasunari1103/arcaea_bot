@@ -4,8 +4,8 @@ import math
 import sqlite3
 import team_database
 from arcaea_music_list import music_list
-
-client = commands.Bot(command_prefix="!", intents=discord.Intents.all())
+intents=discord.Intents.all()
+client = commands.Bot(command_prefix="!", intents=intents)
 
 async def get_username_by_user_id(guild, user_name):
     # ギルド内のメンバーを取得
@@ -280,7 +280,58 @@ async def MC(ctx,song):
     if not song in music_list.keys():
         await ctx.send("正しい楽曲を入力してください！")
 
+@client.command(
+    name="APR",
+    aliases=["add_play_result"]
+)
+async def add_play_result(ctx,music,score):
+    if music in music_list:
+        music_const: float = music_list[music]
+        score = int(score)
+        if score > 10000000:
+            music_potential = music_const + 2.0
+        if 10000000 >= score >= 9800000:
+            music_potential = music_const + 2.0 -  ((10000000 - score)/200000)
+        if 9800000 > score:
+            music_potential = music_const + 1.0 -((9800000 - score)/300000)
+        user_name: str = ctx.author.name
+        conn = sqlite3.connect(f'player_detabase/{user_name}.db')
+        cursor = conn.cursor()
 
+        cursor.execute(f'''CREATE TABLE IF NOT EXISTS "{user_name}table" (
+                            music TEXT UNIQUE,
+                            score INTEGER,
+                            music_potential REAL
+                        )''')
+        
+        cursor.execute(f'SELECT * FROM "{user_name}table" WHERE music = ?',(music,))
+        existing_data = cursor.fetchone()
+
+        if not existing_data:
+            cursor.execute(f'INSERT INTO "{user_name}table" (music, score, music_potential) VALUES (?,?,?)',(music,score,music_potential))
+            await ctx.send(f"データベースに{music}:{score}を登録しました\n譜面別ポテンシャルは{music_potential}です")
+        if existing_data and existing_data[1] < score:
+            cursor.execute(f'UPDATE "{user_name}table" SET music = ?, score = ?, music_potential = ?',(music,score,music_potential))
+            await ctx.send(f'データベースの{music}を{score}に更新しました\n譜面別ポテンシャルは{music_potential}です')
+        if existing_data and existing_data[1] >= score:
+            await ctx.send(f'スコアが同じか下回っているのでデータを更新することができません')
+    else:
+        await ctx.send('正しい曲名を入力してください')
+
+    conn.commit()
+    conn.close()
+@client.command()
+
+async def check_best_30(ctx):
+    user_name = ctx.message.author.name
+    conn = sqlite3.connect(f'player_detabase/{user_name}.db')
+    cursor = conn.cursor()
+    cursor.execute(f'SELECT * FROM "{user_name}table" ORDER BY music_potential')
+    best_30_songs = cursor.fetchmany(30)
+    best_30 = []
+    for i in best_30_songs:
+        best_30.append(i)
+    await ctx.send(best_30)
 TOKEN = 'MTEyMzY2NTU0MTgwMzAyMDMyOA.GPydZ3.BPoftKYXtUYWhvC4PYFJb3iTNmVuw3eRldCW-s'
 
 client.run(TOKEN)
