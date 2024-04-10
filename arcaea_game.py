@@ -280,6 +280,29 @@ async def score_check(ctx,team):
 async def start_game(ctx):
     dt_now = datetime.datetime.now()
     user_name = ctx.author.name
-    await ctx.send(f"{user_name}さん、申請受け付けました！\n現在時刻{dt_now.hour}:{dt_now.minute}:{dt_now.second}から30分間、スコアを受け付けます！")
+    conn = sqlite3.connect('play_situation.db')
+    cursor = conn.cursor()
+    cursor.execute("""CREATE TABLE IF NOT EXISTS playing (
+                    user_name TEXT PRIMARY KEY,
+                    now_playing INTEGER,
+                    played INTEGER
+    )""")
+    conn.commit()
+    cursor.execute("SELECT * FROM playing WHERE user_name = ?",(user_name,))
+    data = cursor.fetchone()
+    if data:
+        if data[2] == 1:
+            await ctx.send('すでに実行しています')
+        if data[2] == 0:
+            cursor.execute('UPDATE playing SET now_playing = ?, played = ? WHERE user_name = ?',(1,1,user_name))
+            conn.commit()
+            conn.close()
+            await ctx.send(f"{user_name}さん、申請受け付けました！\n現在時刻{dt_now.hour}:{dt_now.minute}:{dt_now.second}から30分間、スコアを受け付けます！")
+    else:
+        cursor.execute('INSERT INTO playing (user_name, now_playing, played) VALUES (?,?,?)',(user_name,1,1))
+        conn.commit()
+        conn.close()
+        await ctx.send(f"{user_name}さん、データベースに登録、そして申請受け付けました！\n現在時刻{dt_now.hour}:{dt_now.minute}:{dt_now.second}から30分間、スコアを受け付けます！")
+
 
 client.run(TOKEN)

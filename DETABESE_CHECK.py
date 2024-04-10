@@ -1,7 +1,7 @@
 import sqlite3
 
-conn = sqlite3.connect(f'player_detabase/yasudesu..db')
+conn = sqlite3.connect('play_situation.db')
 cursor = conn.cursor()
-cursor.execute(f'SELECT * FROM "yasudesu.table" ORDER BY music_potential')
-data = cursor.fetchone()
+cursor.execute(f'SELECT * FROM playing')
+data = cursor.fetchall()
 print(data)

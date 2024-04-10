@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from decimal import Decimal, ROUND_HALF_UP, ROUND_HALF_EVEN
 import math
 import sqlite3
 import team_database
