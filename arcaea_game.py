@@ -305,6 +305,7 @@ async def start_game(ctx):
         conn.commit()
         conn.close()
         await ctx.send(f"{user_name}さん、データベースに登録、そして申請受け付けました！\n現在時刻{dt_now.hour}:{dt_now.minute}:{dt_now.second}から30分間、スコアを受け付けます！")
+        
 
 
 client.run(TOKEN)
