@@ -279,6 +279,7 @@ async def score_check(ctx,team):
 @client.command()
 async def start_game(ctx):
     dt_now = datetime.datetime.now()
+    dt_30min = dt_now + datetime.timedelta(minutes=30)
     user_name = ctx.author.name
     conn = sqlite3.connect('play_situation.db')
     cursor = conn.cursor()
@@ -293,11 +294,12 @@ async def start_game(ctx):
     if data:
         if data[2] == 1:
             await ctx.send('すでに実行しています')
+            
         if data[2] == 0:
             cursor.execute('UPDATE playing SET now_playing = ?, played = ? WHERE user_name = ?',(1,1,user_name))
             conn.commit()
             conn.close()
-            await ctx.send(f"{user_name}さん、申請受け付けました！\n現在時刻{dt_now.hour}:{dt_now.minute}:{dt_now.second}から30分間、スコアを受け付けます！")
+            await ctx.send(f"{user_name}さん、申請受け付けました！\n現在時刻{type(dt_now.hour)}:{dt_now.minute}:{dt_now.second}から30分間、スコアを受け付けます！")
     else:
         cursor.execute('INSERT INTO playing (user_name, now_playing, played) VALUES (?,?,?)',(user_name,1,1))
         conn.commit()
