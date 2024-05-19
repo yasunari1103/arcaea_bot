@@ -307,5 +307,14 @@ async def start_game(ctx):
         await ctx.send(f"{user_name}さん、データベースに登録、そして申請受け付けました！\n現在時刻{dt_now.hour}:{dt_now.minute}:{dt_now.second}から30分間、スコアを受け付けます！")
         
 
+@client.command()
+async def add_best_30(ctx,music,score):
+    user_name = ctx.message.author.name
+    conn = sqlite3.connect(f"{user_name}.db")
+    cursor = conn.cursor()
+    cursor.execute(f'''CREATE TABLE IF NOT EXISTS {user_name}table (
+                music TEXT PRIMARY KEY
+                score INTEGER
+                )''')
 
 client.run(TOKEN)
