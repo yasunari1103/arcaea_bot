@@ -121,7 +121,7 @@ async def const_quiz(ctx):
         return reply.channel == ctx.message.channel and reply.reference and reply.reference.message_id == message.id
     try:
         while True:
-            reply = await client.wait_for('message', check=check, timeout=10)  # 30秒間リプライを待機
+            reply = await client.wait_for('message', check=check, timeout=10)  # 10秒間リプライを待機
             try:
                 guessed_const = float(reply.content.strip())
             except ValueError:
