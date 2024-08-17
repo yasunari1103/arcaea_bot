@@ -46,10 +46,11 @@ def reset_B():
     team_database.reset_team_B_database()
     
 
-A_team = [""]
+A_team = ["yasudesu_"]
 B_team = [""]
 
-item_menber_list = ["kyomu1111","tns_disco","柑橘系は飲み物","fumen1024","柑橘系は飲み物","ryokuty4","bs_turtle13"]
+first_item_menber_list = ["kyomu1111","tns_disco","柑橘系は飲み物","fumen1024","柑橘系は飲み物","ryokuty4","bs_turtle13"]
+second_item_menber_list = []
 @client.command()
 async def reset(ctx):
     if ctx.message.author.name == "yasudesu." or "yasudesu_":
@@ -63,77 +64,87 @@ async def add_point(ctx,score,musical_score_constant):
     score = int(score)
     user_name = str(ctx.message.author.name)
     musical_score_constant = float(musical_score_constant)
+    now = datetime.datetime.now()
+    format = '%Y/%m/%d %H:%M:%S'
+    conn = sqlite3.connect('arcaea_bot/play_situation.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM playing WHERE user_name = ?',(user_name,))
+    data = cursor.fetchone()    
     error_message_1 = "正確なスコアの値で入力してください"
-    if user_name in A_team:
-        team = "A"
-        user_data = get_A(user_name)
-        if user_data:
-            user_name, personal_score = user_data
-            if score < 0:
-                await ctx.send(error_message_1)
-            if score > 10002221:
-                await ctx.send(error_message_1)
-            if 10002221 >= score > 10000000:
-                await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
-                personal_score += int(score * math.log(50, 20 - musical_score_constant))
-                await ctx.send(f"# PMおめでとうございます！！！\n追加ポイント{5000000}ポイント獲得です！！！")
-                add_A(user_name,personal_score + 5000000)
-            else:
-                await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
-                personal_score += int(score * math.log(50, 20 - musical_score_constant))
-                add_A(user_name,personal_score)
+    if data and  datetime.datetime.strptime(data[2],format) <= now <= datetime.datetime.strptime(data[3],format):
+        if user_name in A_team:
+            team = "A"
+            user_data = get_A(user_name)
+            if user_data:
+                user_name, personal_score = user_data
+                if score < 0:
+                    await ctx.send(error_message_1)
+                if score > 10002221:
+                    await ctx.send(error_message_1)
+                if 10002221 >= score > 10000000:
+                    await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
+                    personal_score += int(score * math.log(50, 20 - musical_score_constant))
+                    await ctx.send(f"# PMおめでとうございます！！！\n追加ポイント{5000000}ポイント獲得です！！！")
+                    add_A(user_name,personal_score + 5000000)
+                else:
+                    await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
+                    personal_score += int(score * math.log(50, 20 - musical_score_constant))
+                    add_A(user_name,personal_score)
 
-        else:
-            add_A(user_name,0) 
-            personal_score = 0
-            if score < 0:
-                await ctx.send(error_message_1)
-            if score > 10002221:
-                await ctx.send(error_message_1)
-            if 10002221 >= score > 10000000:
-                await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
-                personal_score += int(score * math.log(50, 20 - musical_score_constant))
-                await ctx.send(f"# PMおめでとうございます！！！\n# 追加ポイント{5000000}ポイント獲得です！！！")
-                add_A(user_name,personal_score + 5000000)
             else:
-                await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
-                add_A(user_name , int(score * math.log(50, 20 - musical_score_constant)))
+                add_A(user_name,0) 
+                personal_score = 0
+                if score < 0:
+                    await ctx.send(error_message_1)
+                if score > 10002221:
+                    await ctx.send(error_message_1)
+                if 10002221 >= score > 10000000:
+                    await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
+                    personal_score += int(score * math.log(50, 20 - musical_score_constant))
+                    await ctx.send(f"# PMおめでとうございます！！！\n# 追加ポイント{5000000}ポイント獲得です！！！")
+                    add_A(user_name,personal_score + 5000000)
+                else:
+                    await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
+                    add_A(user_name , int(score * math.log(50, 20 - musical_score_constant)))
 
-    if user_name in B_team:
-        team = "B"
-        user_data = get_B(user_name)
-        if user_data:
-            user_name, personal_score = user_data
-            if score < 0:
-                await ctx.send(error_message_1)
-            if score > 10002221:
-                await ctx.send(error_message_1)
-            if 10002221 >= score > 10000000:
-                await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
-                personal_score += int(score * math.log(50, 20 - musical_score_constant))
-                add_B(user_name,personal_score)
-                await ctx.send(f"# PMおめでとうございます！！！\n追加ポイント{5000000}ポイント獲得です！！！")
-                add_B(user_name,personal_score + 5000000)
-            else:
-                await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
-                personal_score += int(score * math.log(50, 20 - musical_score_constant))
-                add_B(user_name,personal_score)
+        if user_name in B_team:
+            team = "B"
+            user_data = get_B(user_name)
+            if user_data:
+                user_name, personal_score = user_data
+                if score < 0:
+                    await ctx.send(error_message_1)
+                if score > 10002221:
+                    await ctx.send(error_message_1)
+                if 10002221 >= score > 10000000:
+                    await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
+                    personal_score += int(score * math.log(50, 20 - musical_score_constant))
+                    add_B(user_name,personal_score)
+                    await ctx.send(f"# PMおめでとうございます！！！\n追加ポイント{5000000}ポイント獲得です！！！")
+                    add_B(user_name,personal_score + 5000000)
+                else:
+                    await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
+                    personal_score += int(score * math.log(50, 20 - musical_score_constant))
+                    add_B(user_name,personal_score)
 
-        else:
-            add_B(user_name,0)
-            personal_score = 0
-            if score < 0:
-                await ctx.send(error_message_1)
-            if score > 10002221:
-                await ctx.send(error_message_1)
-            if 10002221 >= score > 10000000:
-                await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
-                personal_score += int(score * math.log(50, 20 - musical_score_constant))
-                await ctx.send(f"# PMおめでとうございます！！！\n追加ポイント{5000000}ポイント獲得です！！！")
-                add_B(user_name,personal_score + 5000000)
             else:
-                await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
-                add_B(user_name,int(score * math.log(50, 20 - musical_score_constant)))
+                add_B(user_name,0)
+                personal_score = 0
+                if score < 0:
+                    await ctx.send(error_message_1)
+                if score > 10002221:
+                    await ctx.send(error_message_1)
+                if 10002221 >= score > 10000000:
+                    await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
+                    personal_score += int(score * math.log(50, 20 - musical_score_constant))
+                    await ctx.send(f"# PMおめでとうございます！！！\n追加ポイント{5000000}ポイント獲得です！！！")
+                    add_B(user_name,personal_score + 5000000)
+                else:
+                    await ctx.send(f"{team}チームに{int(score * math.log(50, 20 - musical_score_constant))}ポイント加算されました！")
+                    add_B(user_name,int(score * math.log(50, 20 - musical_score_constant)))
+    else:
+        await ctx.send('!start_game')
+        await ctx.send('を実行してください。')
 
 @client.command()
 async def all_score_check(ctx,team):
@@ -218,7 +229,6 @@ async def all_score_check(ctx,team):
         # データベース接続を閉じる
         conn.close()
 
-
 @client.command()
 async def score_check(ctx,team):
     if team == "A":
@@ -278,30 +288,42 @@ async def score_check(ctx,team):
 
 @client.command()
 async def start_game(ctx):
+    max_play_count = 3
     dt_now = datetime.datetime.now()
-    dt_30min = dt_now + datetime.timedelta(minutes=30)
+    dt_30late = dt_now + datetime.timedelta(minutes=30)
     user_name = ctx.author.name
-    conn = sqlite3.connect('play_situation.db')
+    format = '%Y/%m/%d %H:%M:%S'
+    conn = sqlite3.connect('arcaea_bot/play_situation.db')
     cursor = conn.cursor()
     cursor.execute("""CREATE TABLE IF NOT EXISTS playing (
                     user_name TEXT PRIMARY KEY,
-                    now_playing INTEGER,
-                    played INTEGER
+                    play_count INTEGER,
+                    start_time TEXT,
+                    end_time TEXT
     )""")
     conn.commit()
     cursor.execute("SELECT * FROM playing WHERE user_name = ?",(user_name,))
     data = cursor.fetchone()
     if data:
-        if data[2] == 1:
-            await ctx.send('すでに実行しています')
-            
-        if data[2] == 0:
-            cursor.execute('UPDATE playing SET now_playing = ?, played = ? WHERE user_name = ?',(1,1,user_name))
-            conn.commit()
-            conn.close()
-            await ctx.send(f"{user_name}さん、申請受け付けました！\n現在時刻{type(dt_now.hour)}:{dt_now.minute}:{dt_now.second}から30分間、スコアを受け付けます！")
+        db_now_str = data[2]
+        db_later_str = data[3]
+        if data[1] < max_play_count:
+            if datetime.datetime.strptime(db_now_str,format) <= dt_now <= datetime.datetime.strptime(db_later_str,format):
+                await ctx.send('実行中です。')
+            else:
+                await ctx.send(f'{user_name}さん、{dt_now}にデータベースを更新しました！\n{dt_30late}までスコアを受け付けます！')
+                dt_now_str = dt_now.strftime('%Y/%m/%d %H:%M:%S')
+                dt_30late_str = dt_30late.strftime('%Y/%m/%d %H:%M:%S')
+                cursor.execute('UPDATE playing SET play_count = ?, start_time = ?, end_time = ? WHERE user_name = ?',(data[1]+1,dt_now_str,dt_30late_str,user_name))
+                conn.commit()
+                conn.close()
+        if data[1] >= max_play_count:
+            await ctx.send('実行可能回数に到達しています。')
     else:
-        cursor.execute('INSERT INTO playing (user_name, now_playing, played) VALUES (?,?,?)',(user_name,1,1))
+        await ctx.send(f'{user_name}さん、{dt_now}にデータベースへ登録しました！\n{dt_30late}までスコアを受け付けます！')
+        dt_now_str = dt_now.strftime('%Y/%m/%d %H:%M:%S')
+        dt_30late_str = dt_30late.strftime('%Y/%m/%d %H:%M:%S')
+        cursor.execute('INSERT INTO playing (user_name, play_count, start_time, end_time) VALUES (?,?,?,?)',(user_name,1,dt_now_str,dt_30late_str))
         conn.commit()
         conn.close()
         await ctx.send(f"{user_name}さん、データベースに登録、そして申請受け付けました！\n現在時刻{dt_now.hour}:{dt_now.minute}:{dt_now.second}から30分間、スコアを受け付けます！")
