@@ -5,6 +5,7 @@ import sqlite3
 import team_database
 import random
 import asyncio
+import json
 from arcaea_music_list import music_list
 from TOKEN import TOKEN
 intents=discord.Intents.all()
@@ -135,5 +136,22 @@ async def const_quiz(ctx):
                 await ctx.send(f'不正解です。')
     except asyncio.TimeoutError:
         await ctx.send(f'時間切れです\n正解は {correct_const} です。')
+
+@client.command()
+async def bewaku_keisann(ctx):
+    if ctx.message.author == client.user:
+        return
+
+    if ctx.message.attachments:
+        for attachment in ctx.message.attachments:
+            if attachment.filename.endswith('.json'):
+                json_data = await attachment.read()  # バイナリデータとして読み込み
+                data = json.loads(json_data)  # JSONデータをPythonオブジェクトに変換
+                await process_json(data)  # 関数を実行
+
+async def process_json(data):
+    # JSONデータを使った何らかの処理をここに記述
+    print("JSON data:", data)
+    await add_play_result(data)
 
 client.run(TOKEN)
