@@ -3,8 +3,8 @@
 スコアのclass => ex-main EX+
 */
 
-let button = document.createElement("button");
-button.addEventListener("click", function () {
+let getJSONButton = document.createElement("button");
+getJSONButton.addEventListener("click", function () {
   let result = document.getElementsByClassName("card");
   musicList = {};
 
@@ -40,13 +40,47 @@ button.addEventListener("click", function () {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 });
-button.textContent = "ベスト枠のJSONファイルをダウンロード！";
-button.className = "newButton";
+getJSONButton.textContent = "ベスト枠のJSONファイルをダウンロード！";
+getJSONButton.className = "button";
 
 //ボタンのcss
-button.style.width = "100%";
-button.style.height = "auto";
-button.style.background = "linear-gradient(to right, #B0FFFF, pink)";
-button.style.fontFamily =
+getJSONButton.style.width = "100%";
+getJSONButton.style.height = "auto";
+getJSONButton.style.background = "linear-gradient(to right, #B0FFFF, pink)";
+getJSONButton.style.fontFamily =
   "Open Sans,Yu Gothic Medium,Yu Gothic,Noto Sans JP,sans-serif";
-document.body.prepend(button);
+document.body.prepend(getJSONButton);
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+let checkBestPotentialButton = document.createElement('button');
+checkBestPotentialButton.addEventListener('click', function () {
+  musicList = {};
+  let result = document.getElementsByClassName("card");
+
+  for (let i = 1; i < 60; i += 2) {
+    let musicName =
+      result[i].getElementsByClassName("no-overflow")[0].textContent;
+    let musicScore = parseInt(
+      result[i]
+        .getElementsByClassName("experince")[0]
+        .textContent.replace(/[^0-9]/g, ""),
+      10
+    );
+    difficultyLevel =
+      result[i].getElementsByClassName("label small-label")[0].textContent;
+    musicList[(i/2+0.5) + '. ' + musicName + "[" + difficultyLevel + "]"] = musicScore;
+  }
+  console.log(musicList);
+})
+checkBestPotentialButton.textContent = "ベスト枠を確認！";
+checkBestPotentialButton.className = "button";
+
+//ボタンのcss
+checkBestPotentialButton.style.width = "100%";
+checkBestPotentialButton.style.height = "auto";
+checkBestPotentialButton.style.background = "linear-gradient(to right, #B0FFFF, pink)";
+checkBestPotentialButton.style.fontFamily =
+  "Open Sans,Yu Gothic Medium,Yu Gothic,Noto Sans JP,sans-serif";
+document.body.prepend(checkBestPotentialButton);

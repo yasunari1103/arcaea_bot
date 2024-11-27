@@ -87,13 +87,15 @@ async def check_best_30(ctx):
     cursor = conn.cursor()
     cursor.execute(f'SELECT * FROM "{user_name}table" ORDER BY music_potential DESC')
     best_30_songs = cursor.fetchmany(30)
-    best_30 = f"曲名=>スコア：譜面別ポテンシャル"
+    best_30 = f"曲名:スコア=>譜面別ポテンシャル"
     best_botential = 0
     max_potential = 0
     c = 0
+    num = 0
     for i in best_30_songs:
+        num+=1
         best_botential += i[2]
-        best_30 += f"\n{i[0]}=>{str(i[1])}：{str(round(i[2],6))}"
+        best_30 += f"\n{num}. {i[0]} : {str(i[1])}=>{str(round(i[2],6))}"
     for i in best_30_songs:
         max_potential += i[2]
         c += 1
