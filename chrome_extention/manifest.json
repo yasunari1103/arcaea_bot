@@ -9,5 +9,11 @@
       "matches": ["https://arcaea.lowiro.com/ja/profile/potential"],
       "js": ["content.js"]
     }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["musicList.json"],
+      "matches": ["<all_urls>"]
+    }
   ]
 }
