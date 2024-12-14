@@ -56,11 +56,11 @@ document.body.prepend(getJSONButton);
 let checkBestPotentialButton = document.createElement("button");
 checkBestPotentialButton.addEventListener("click", function () {
   const jsonPath = chrome.runtime.getURL("musicList.json"); //同梱されているJSONファイルの読み込み
-  let best30Total = 0
+  let best30Total = 0;
+  let maxRecentPotential = 0;
   fetch(jsonPath)
     .then((response) => response.json())
     .then((data) => {
-      
       let bestMusicList = [];
       let result = document.getElementsByClassName("card");
       for (let i = 1; i < 60; i += 2) {
@@ -84,18 +84,49 @@ checkBestPotentialButton.addEventListener("click", function () {
       bestMusicList.forEach((element) => {
         Object.entries(data).forEach(([key, value]) => {
           if (element.name === key) {
-            let musicPotential = 0
+            let musicPotential = 0;
             let Const = value;
             let Score = element.score;
-            if (Score>10000000) {musicPotential += Const + 2.0;}
-            if (10000000 >= Score && Score >=9800000) {musicPotential += Const + 2.0 - ((10000000 - Score)/200000);}
-            if (9800000>Score) {musicPotential += Const + 1.0 - ((9800000 - Score)/300000);
-              if (musicPotential < 0) {musicPotential = 0;}}
+            if (Score > 10000000) {
+              musicPotential += Const + 2.0;
+            }
+            if (10000000 >= Score && Score >= 9800000) {
+              musicPotential += Const + 2.0 - (10000000 - Score) / 200000;
+            }
+            if (9800000 > Score) {
+              musicPotential += Const + 1.0 - (9800000 - Score) / 300000;
+              if (musicPotential < 0) {
+                musicPotential = 0;
+              }
+            }
             best30Total += musicPotential;
-            console.log(element.number, key, Const, Score, musicPotential,best30Total/element.number);
+            if (element.number < 11) {
+              maxRecentPotential += musicPotential;
+            }
+            console.log(
+              element.number,
+              key,
+              Const,
+              Score,
+              musicPotential,
+              best30Total / element.number
+            );
           }
         });
-      });alert('あなたのベスト枠平均は、'+best30Total/30+'です！');
+      });
+      alert(
+        "あなたのベスト枠平均は、" +
+          best30Total / 30 +
+          "です！" +
+          "\n" +
+          "ベスト更新無しの最大ポテンシャルは、" +
+          (maxRecentPotential + best30Total) / 40 +
+          "です！" +
+          "\n" +
+          "最低ポテンシャルは、" +
+          best30Total / 40 +
+          "です！"
+      );
     })
     .catch((error) => {
       console.error("Error loading JSON:", error);
