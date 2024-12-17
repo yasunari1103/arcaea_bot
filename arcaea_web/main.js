@@ -9,17 +9,23 @@ function randonMusicByConst() {
       return response.json();
     })
     .then((data) => {
-        let musicConstArray = []
+      const musicConstArray = [];
+      let selectMusices = [];
       console.log(musicConstMax);
       console.log(musicConstMin);
-      //forで配列作成    <= あとでやる
-      for(let i = musicConstMin * 10;i < musicConstMax * 10 + 1;i++) {
-musicConstArray.push(i)
+      for (let i = musicConstMin * 10; i < musicConstMax * 10 + 1; i++) {
+        musicConstArray.push(i);
       }
       console.log(data);
-      //forEachで配列から取り出して実行    <= あとでやる
-      console.log(musicConstArray)
-      
+      console.log(musicConstArray);
+      Object.entries(data).forEach(([musicName, musicConst]) => {
+        if (musicConstArray.includes(musicConst * 10)) {
+          console.log(musicName);
+          selectMusices.push(musicName);
+        }
+      });
+      let randomIndex = Math.floor(Math.random() * selectMusices.length);
+      alert(selectMusices[randomIndex]);
     })
     .catch((error) => {
       console.error("Error:", error);
