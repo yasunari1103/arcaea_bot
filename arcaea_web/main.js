@@ -9,7 +9,7 @@ function randonMusicByConst() {
       return response.json();
     })
     .then((data) => {
-      const musicConstArray = [];
+      let musicConstArray = [];
       let selectMusices = [];
       console.log(musicConstMax);
       console.log(musicConstMin);
