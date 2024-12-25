@@ -7,6 +7,11 @@ function main() {
     "<xmp>"+after+"</xmp>",
     "text/html"
   );
-  const iframeElement = doc.body.firstChild;
-  document.body.appendChild(iframeElement);
+  const copyTarget = doc.body.firstChild;
+  document.body.appendChild(copyTarget);
+  navigator.clipboard.writeText(copyTarget.textContent || after).then(() => {
+    alert('クリップボードにコピーしました！');
+  }).catch(err => {
+    console.error("コピーに失敗しました：",err);
+  });
 }
