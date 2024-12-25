@@ -1,6 +1,12 @@
 function main() {
-  const before = document.getElementById("before").value;
-  const after = before.replace(/"/g, '\\"');
+  const before = document.getElementById("before");
+  const after = before.value.replace(/"/g, '\\"');
   console.log(after);
-  before.innerHTML = "<p>"+after+"</p>";
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(
+    "<xmp>"+after+"</xmp>",
+    "text/html"
+  );
+  const iframeElement = doc.body.firstChild;
+  document.body.appendChild(iframeElement);
 }
