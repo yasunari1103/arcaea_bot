@@ -1,3 +1,5 @@
+//置換サイト => https://yasunari1103.github.io/arcaea_bot/arcaea_web/replace/
+
 function randonMusicByConst() {
   let selectedSongtitle = document.getElementById("musicTitle");
   if (selectedSongtitle) {
