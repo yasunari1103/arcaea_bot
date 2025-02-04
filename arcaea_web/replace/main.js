@@ -1,3 +1,5 @@
+//作業用URL => https://yasunari1103.github.io/arcaea_bot/arcaea_web/replace/
+
 function main() {
   const before = document.getElementById("before");
   const after = before.value.replace(/"/g, '\\"');
