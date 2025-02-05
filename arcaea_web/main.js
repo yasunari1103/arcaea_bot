@@ -12,6 +12,16 @@ function randonMusicByConst() {
 
   let musicConstMin = document.getElementById("const_min").value;
   let musicConstMax = document.getElementById("const_max").value;
+  if (musicConstMin == "") {
+    musicConstMin = 1.0;
+  } else if (!(1.0 <= musicConstMin <= 12)) {
+    alert("正しい数値を入力してください！");
+  }
+  if (musicConstMax == "") {
+    musicConstMax = 12.0;
+  } else if (!(1.0 <= musicConstMax <= 12)) {
+    alert("正しい数値を入力してください！");
+  }
   fetch("musicListConst.json")
     .then((response) => {
       if (!response.ok) {
